@@ -7,7 +7,8 @@ description: '个人主页、技术博客与学习笔记'
 homepage: 'https://cychenme.org'
 defaultContentLanguage: 'zh'
 hasCJKLanguage: true
-paginate: 10
+pagination:
+  pagerSize: 10
 copyright: "2026 cychenme. All rights reserved."
 
 Author:
