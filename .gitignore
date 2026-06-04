@@ -6,3 +6,6 @@ exampleSite/resources/
 *.lock
 public/
 resources/
+themes/hugo-theme-ladder/docs/
+themes/hugo-theme-ladder/exampleSite/
+themes/hugo-theme-ladder/images/
