@@ -53,6 +53,14 @@ Build output directory: public
 Production branch: main
 ```
 
+If Cloudflare asks for a deploy command, use:
+
+```text
+npx wrangler deploy
+```
+
+The Wrangler config is stored in [wrangler.jsonc](wrangler.jsonc) and deploys Hugo's `public` directory.
+
 建议在 Cloudflare Pages 的环境变量中设置：
 
 ```text
