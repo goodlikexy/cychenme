@@ -1,15 +1,75 @@
-## how to install
+# cychenme.org
 
-Just click `Use this template` to create your blog site by 
+个人主页、技术博客、学习笔记和项目展示站点。
 
-![4dmtph](https://cdn.jsdelivr.net/gh/guangzhengli/PicURL@master/uPic/4dmtph.png)
+## 技术栈
 
-Create a new repository(GitHub Pages) from hugo-ladder-exampleSite to enter : `username.github.io`.
+- Hugo
+- Hugo Ladder Theme
+- Markdown
+- Cloudflare Pages
 
-> **replace the username by your GitHub account**
+## 本地开发
 
-Then configure the GitHub page setting following:
+```bash
+git submodule update --init --recursive
+hugo server -D
+```
 
-![nsrExo](https://cdn.jsdelivr.net/gh/guangzhengli/PicURL@master/uPic/nsrExo.png)
+本地预览地址：
 
-🎉🎉🎉 Open the browser and enter: https://username.github.io 🎉🎉🎉
+```text
+http://localhost:1313
+```
+
+## 新建内容
+
+新建技术博客：
+
+```bash
+hugo new blog/my-post.md
+```
+
+新建学习笔记：
+
+```bash
+hugo new notes/my-note.md
+```
+
+新建项目记录：
+
+```bash
+hugo new projects/my-project.md
+```
+
+## Cloudflare Pages
+
+推荐配置：
+
+```text
+Framework preset: Hugo
+Build command: hugo
+Build output directory: public
+Production branch: main
+```
+
+建议在 Cloudflare Pages 的环境变量中设置：
+
+```text
+HUGO_VERSION=0.128.0
+```
+
+域名绑定：
+
+```text
+cychenme.org
+www.cychenme.org
+```
+
+## 主要配置
+
+- 站点配置：[config.yml](config.yml)
+- 技术博客：[content/blog](content/blog)
+- 学习笔记：[content/notes](content/notes)
+- 项目展示：[content/projects](content/projects)
+- 关于页面：[content/about.md](content/about.md)
