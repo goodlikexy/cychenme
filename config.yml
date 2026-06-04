@@ -43,6 +43,7 @@ params:
   brand: HOME
   avatarURL: /images/avatar.png
   author: cychenme
+  authorEmail: ""
   authorDescription: 时间序列因果发现 / 根因定位 / Linux 系统 / 安全检测
   info: 记录技术学习、研究思考和工程实践。
   favicon: /images/avatar.png
