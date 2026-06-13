@@ -1,6 +1,6 @@
 # cychenme.org
 
-个人主页、技术博客、学习笔记和项目展示站点。
+记录生活、学习和个人作品的站点。
 
 ## 技术栈
 
@@ -24,22 +24,22 @@ http://localhost:1313
 
 ## 新建内容
 
-新建技术博客：
+新建生活记录：
 
 ```bash
-hugo new blog/my-post.md
+hugo new life/my-post.md
 ```
 
-新建学习笔记：
+新建学习记录：
 
 ```bash
-hugo new notes/my-note.md
+hugo new study/my-note.md
 ```
 
-新建项目记录：
+新建作品：
 
 ```bash
-hugo new projects/my-project.md
+hugo new works/my-work.md
 ```
 
 ## Cloudflare Pages
@@ -77,7 +77,7 @@ www.cychenme.org
 ## 主要配置
 
 - 站点配置：[config.yml](config.yml)
-- 技术博客：[content/blog](content/blog)
-- 学习笔记：[content/notes](content/notes)
-- 项目展示：[content/projects](content/projects)
+- 生活记录：[content/life](content/life)
+- 学习记录：[content/study](content/study)
+- 作品展示：[content/works](content/works)
 - 关于页面：[content/about.md](content/about.md)

@@ -3,7 +3,7 @@ title: cychenme
 theme: hugo-theme-ladder
 license: MIT
 licenselink: 'https://github.com/guangzhengli/hugo-theme-ladder/blob/master/LICENSE'
-description: '个人主页、技术博客与学习笔记'
+description: '记录生活、学习与个人作品'
 homepage: 'https://cychenme.org'
 defaultContentLanguage: 'zh'
 hasCJKLanguage: true
@@ -20,32 +20,27 @@ menu:
     - name: 首页
       url: /
       weight: 1
-    - name: 技术博客
-      url: /blog
+    - name: 生活
+      url: /life
       weight: 2
-    - name: 学习笔记
-      url: /notes
+    - name: 学习
+      url: /study
       weight: 3
-    - name: 项目
-      url: /projects
+    - name: 作品
+      url: /works
       weight: 4
     - name: 关于
       url: /about
       weight: 5
-    - name: 标签
-      url: /tags
-      weight: 6
-    - name: 归档
-      url: /archives
-      weight: 7
 
 params:
   brand: HOME
   avatarURL: /images/avatar.png
   author: cychenme
   authorEmail: ""
-  authorDescription: 时间序列因果发现 / 根因定位 / Linux 系统 / 安全检测
-  info: 记录技术学习、研究思考和工程实践。
+  authorDescription: 生活、学习，以及一些做出来的东西
+  info: 在这里记录日常见闻、长期学习和阶段性作品。
+  mainSections: [life, study, works]
   favicon: /images/avatar.png
   options:
     showDarkMode: true
@@ -81,5 +76,4 @@ params:
       url: 'https://github.com/'
 
 taxonomies:
-  series: series
   tag: tags

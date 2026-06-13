@@ -4,9 +4,7 @@
 
     {{- /* Meta */}}
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
-    {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
-    {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.info }}{{ . }}{{ else }}{{ site.Title }}{{ end }}{{ end }}">
     <meta name="author" content="{{ site.Params.author }}">
     <link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
     {{- if site.Params.analytics.google.SiteVerificationTag }}
@@ -25,6 +23,7 @@
     {{ $cssFile := (dict "targetPath" "css/main.css" ) }}
     {{ $styles := resources.Get "/scss/app.scss" | toCSS $cssFile | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" crossorigin="anonymous" media="screen" />
+    <link rel="stylesheet" href="{{ "css/site.css" | relURL }}" media="screen" />
 
 
     {{ $highlight := resources.Get "scss/highlight/github-dark.min.css" | minify | fingerprint }}

@@ -1,0 +1,20 @@
+{{ define "content" }}
+<article class="blog-single work-single">
+  <header class="blog-title work-title">
+    <p class="section-label">WORK</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="work-description">{{ . }}</p>{{ end }}
+    <div class="work-detail-meta">
+      {{ with .Params.status }}<span>{{ . }}</span>{{ end }}
+      {{ range .Params.stack }}<span>{{ . }}</span>{{ end }}
+    </div>
+    <div class="work-actions">
+      {{ with .Params.demo }}<a href="{{ . }}" target="_blank" rel="noopener">访问作品</a>{{ end }}
+      {{ with .Params.source }}<a href="{{ . }}" target="_blank" rel="noopener">查看源码</a>{{ end }}
+    </div>
+  </header>
+  {{ with .Params.cover }}<img class="work-hero" src="{{ . | relURL }}" alt="">{{ end }}
+  <section class="blog-content">{{ .Content }}</section>
+</article>
+{{ end }}
+

@@ -3,7 +3,7 @@ title: "Linux 学习笔记"
 date: 2026-06-04T17:05:00+08:00
 description: "整理 Linux 系统、命令行和排错相关的学习记录。"
 tags: ["Linux", "学习笔记"]
-series: ["学习笔记"]
+aliases: ["/notes/linux/"]
 ---
 
 这里用于整理 Linux 相关笔记。
@@ -15,3 +15,4 @@ series: ["学习笔记"]
 - 网络排错
 - 容器与进程隔离
 - eBPF 与运行时观测
+

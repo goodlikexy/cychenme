@@ -1,0 +1,69 @@
+{{ define "content" }}
+<div class="site-home">
+  <section class="home-hero">
+    <div class="home-intro">
+      <p class="home-kicker">{{ .Site.Params.author }}</p>
+      <h1>{{ .Site.Params.authorDescription }}</h1>
+      <p>{{ .Site.Params.info }}</p>
+    </div>
+    {{ with .Site.Params.avatarURL }}
+    <img class="home-avatar" src="{{ . | relURL }}" alt="{{ $.Site.Params.author }} 的头像">
+    {{ end }}
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">LIFE</p>
+        <h2>最近生活</h2>
+      </div>
+      <a href="{{ "/life/" | relURL }}">查看全部</a>
+    </div>
+    <div class="entry-grid">
+      {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "life") }}
+        {{ partial "entry-card.html" . }}
+      {{ else }}
+        <p class="empty-state">生活还在发生，记录会慢慢出现。</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">STUDY</p>
+        <h2>最近学习</h2>
+      </div>
+      <a href="{{ "/study/" | relURL }}">查看全部</a>
+    </div>
+    <div class="entry-grid">
+      {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "study") }}
+        {{ partial "entry-card.html" . }}
+      {{ else }}
+        <p class="empty-state">学习记录正在整理中。</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">WORKS</p>
+        <h2>精选作品</h2>
+      </div>
+      <a href="{{ "/works/" | relURL }}">查看全部</a>
+    </div>
+    <div class="works-grid">
+      {{ $featured := where (where .Site.RegularPages.ByDate.Reverse "Section" "works") "Params.featured" true }}
+      {{ range first 3 $featured }}
+        {{ partial "work-card.html" . }}
+      {{ else }}
+        {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "works") }}
+          {{ partial "work-card.html" . }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+</div>
+{{ end }}
+

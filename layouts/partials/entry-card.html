@@ -1,0 +1,18 @@
+<article class="entry-card">
+  <a class="entry-card-link" href="{{ .RelPermalink }}">
+    {{ with .Params.cover }}
+    <div class="entry-cover"><img src="{{ . | relURL }}" alt=""></div>
+    {{ end }}
+    <div class="entry-body">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+      <h3>{{ .Title }}</h3>
+      <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 110 }}{{ end }}</p>
+      {{ with .Params.tags }}
+      <div class="entry-tags">
+        {{ range first 3 . }}<span>{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </a>
+</article>
+

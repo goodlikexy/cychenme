@@ -1,0 +1,41 @@
+<footer class="footer site-footer">
+  <div class="footer-inner">
+    <nav aria-label="辅助导航">
+      <a href="{{ "/tags/" | relURL }}">标签</a>
+      <a href="{{ "/archives/" | relURL }}">归档</a>
+      <a href="{{ "/index.xml" | relURL }}">RSS</a>
+    </nav>
+    <p>&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ site.Title }}</a></p>
+  </div>
+</footer>
+
+<a href="#top" aria-label="返回顶部" title="返回顶部" class="top-link" id="top-link">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+<script>
+  var topLink = document.getElementById("top-link");
+  window.addEventListener("scroll", function () {
+    var visible = document.body.scrollTop > 800 || document.documentElement.scrollTop > 800;
+    topLink.style.visibility = visible ? "visible" : "hidden";
+    topLink.style.opacity = visible ? "1" : "0";
+  });
+</script>
+
+<script>
+  document.querySelectorAll("pre > code").forEach(function (codeblock) {
+    var copybutton = document.createElement("button");
+    copybutton.classList.add("copy-code");
+    copybutton.innerHTML = "Copy";
+    copybutton.addEventListener("click", function () {
+      navigator.clipboard.writeText(codeblock.textContent).then(function () {
+        copybutton.innerHTML = "Copied";
+        setTimeout(function () { copybutton.innerHTML = "Copy"; }, 2000);
+      });
+    });
+    codeblock.parentNode.appendChild(copybutton);
+  });
+</script>
+
