@@ -1,5 +1,7 @@
 <article class="entry-card">
-  <a class="entry-card-link" href="{{ .RelPermalink }}">
+  {{- $href := .RelPermalink -}}
+  {{- with .Params.externalArticle -}}{{ $href = . | relURL }}{{- end -}}
+  <a class="entry-card-link" href="{{ $href }}">
     {{ with .Params.cover }}
     <div class="entry-cover"><img src="{{ . | relURL }}" alt=""></div>
     {{ end }}
@@ -15,4 +17,3 @@
     </div>
   </a>
 </article>
-

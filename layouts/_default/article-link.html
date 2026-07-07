@@ -1,0 +1,15 @@
+{{ define "content" }}
+{{- $target := .RelPermalink -}}
+{{- with .Params.externalArticle -}}{{ $target = . | relURL }}{{- end -}}
+<main class="section-page article-link-page">
+  <header class="section-intro">
+    <p class="section-label">{{ upper .Section }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </header>
+  <p class="empty-state">正在打开独立网页文章。若没有自动跳转，请<a href="{{ $target }}">点击这里</a>。</p>
+  <script>
+    window.location.replace({{ printf "%q" $target | safeJS }});
+  </script>
+</main>
+{{ end }}
