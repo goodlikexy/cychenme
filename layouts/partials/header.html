@@ -1,0 +1,36 @@
+<nav class="navigation" aria-label="主导航">
+  <section class="container">
+    <a class="navigation-brand" href="{{ "/" | relLangURL }}" aria-label="{{ .Site.Title }} 首页">
+      <span aria-hidden="true">C</span>
+      <strong>{{ .Site.Title }}</strong>
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle" aria-label="打开导航菜单">
+      <span></span><span></span><span></span>
+    </label>
+    <ul class="navigation-list" id="navigation-list">
+      {{ range .Site.Menus.main }}
+      {{- $menuURL := .URL | relLangURL -}}
+      {{- $active := or (and $.IsHome (eq $menuURL "/")) (and (ne $menuURL "/") (hasPrefix $.RelPermalink $menuURL)) -}}
+      <li class="navigation-item navigation-menu">
+        <a class="navigation-link{{ if $active }} is-active{{ end }}" href="{{ $menuURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      </li>
+      {{ end }}
+      {{ with .Site.Params.social }}
+      {{ range . }}
+      <li class="navigation-item navigation-social">
+        <a class="navigation-link" href="{{ .url | relURL }}" aria-label="{{ .name }}">{{ .pre | safeHTML }}</a>
+      </li>
+      {{ end }}
+      {{ end }}
+      {{ if .Site.Params.options.showDarkMode }}
+      <li class="navigation-item navigation-dark">
+        <button id="mode" type="button" aria-label="切换明暗主题">
+          <span class="toggle-dark">◐</span>
+          <span class="toggle-light">◑</span>
+        </button>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+</nav>

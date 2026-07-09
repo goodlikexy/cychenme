@@ -1,69 +1,58 @@
 {{ define "content" }}
-<div class="site-home">
-  <section class="home-hero">
-    <div class="home-intro">
-      <p class="home-kicker">{{ .Site.Params.author }}</p>
-      <h1>{{ .Site.Params.authorDescription }}</h1>
-      <p>{{ .Site.Params.info }}</p>
+{{- $life := where .Site.RegularPages.ByDate.Reverse "Section" "life" -}}
+{{- $study := where .Site.RegularPages.ByDate.Reverse "Section" "study" -}}
+{{- $works := where .Site.RegularPages.ByDate.Reverse "Section" "works" -}}
+{{- $entries := where .Site.RegularPages.ByDate.Reverse "Section" "in" (slice "life" "study" "works") -}}
+{{- $recent := first 12 $entries -}}
+<main class="editorial-page home-page">
+  <section class="editorial-hero" aria-labelledby="home-title">
+    <div class="hero-mark" aria-hidden="true">
+      {{ range seq 16 }}<span></span>{{ end }}
     </div>
-    {{ with .Site.Params.avatarURL }}
-    <img class="home-avatar" src="{{ . | relURL }}" alt="{{ $.Site.Params.author }} 的头像">
-    {{ end }}
-  </section>
 
-  <section class="home-section">
-    <div class="section-heading">
-      <div>
-        <p class="section-label">LIFE</p>
-        <h2>最近生活</h2>
-      </div>
-      <a href="{{ "/life/" | relURL }}">查看全部</a>
-    </div>
-    <div class="entry-grid">
-      {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "life") }}
-        {{ partial "entry-card.html" . }}
-      {{ else }}
-        <p class="empty-state">生活还在发生，记录会慢慢出现。</p>
-      {{ end }}
+    <div class="hero-copy">
+      <p class="eyebrow">CYCHENME / PERSONAL ARCHIVE</p>
+      <h1 id="home-title">把生活、学习与作品，<br><em>整理成可以反复阅读的样子。</em></h1>
+      <p class="hero-description">{{ .Site.Params.info }}</p>
+
+      <nav class="category-pills" aria-label="内容分类">
+        <a class="is-active" href="#recent">全部 <small>{{ len $entries }}</small></a>
+        <a href="{{ "/life/" | relURL }}">生活 <small>{{ len $life }}</small></a>
+        <a href="{{ "/study/" | relURL }}">学习 <small>{{ len $study }}</small></a>
+        <a href="{{ "/works/" | relURL }}">作品 <small>{{ len $works }}</small></a>
+      </nav>
     </div>
   </section>
 
-  <section class="home-section">
-    <div class="section-heading">
-      <div>
-        <p class="section-label">STUDY</p>
-        <h2>最近学习</h2>
-      </div>
-      <a href="{{ "/study/" | relURL }}">查看全部</a>
-    </div>
-    <div class="entry-grid">
-      {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "study") }}
-        {{ partial "entry-card.html" . }}
-      {{ else }}
-        <p class="empty-state">学习记录正在整理中。</p>
-      {{ end }}
-    </div>
-  </section>
+  <section class="archive-section" id="recent" aria-labelledby="recent-title">
+    <header class="archive-heading">
+      <span>RECENT NOTES</span>
+      <h2 id="recent-title">最近更新</h2>
+      <p>按时间收拢近来的记录。</p>
+    </header>
 
-  <section class="home-section">
-    <div class="section-heading">
-      <div>
-        <p class="section-label">WORKS</p>
-        <h2>精选作品</h2>
-      </div>
-      <a href="{{ "/works/" | relURL }}">查看全部</a>
-    </div>
-    <div class="works-grid">
-      {{ $featured := where (where .Site.RegularPages.ByDate.Reverse "Section" "works") "Params.featured" true }}
-      {{ range first 3 $featured }}
-        {{ partial "work-card.html" . }}
+    <div class="timeline">
+      {{ range $recent.GroupByDate "2006" }}
+        <section class="timeline-year" aria-labelledby="year-{{ .Key }}">
+          <header class="year-heading">
+            <span></span>
+            <h3 id="year-{{ .Key }}">{{ if eq .Key "0001" }}未标日期{{ else }}{{ .Key }}{{ end }}</h3>
+            <span></span>
+          </header>
+          <div class="timeline-items">
+            {{ range .Pages }}
+              {{ if eq .Section "works" }}
+                {{ partial "work-card.html" . }}
+              {{ else }}
+                {{ partial "entry-card.html" . }}
+              {{ end }}
+            {{ end }}
+          </div>
+        </section>
       {{ else }}
-        {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "works") }}
-          {{ partial "work-card.html" . }}
-        {{ end }}
+        <p class="empty-state">内容正在整理中。</p>
       {{ end }}
     </div>
   </section>
-</div>
+</main>
 {{ end }}
-

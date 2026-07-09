@@ -1,26 +1,39 @@
 {{ define "content" }}
-<main class="section-page">
-  <header class="section-intro">
-    <p class="section-label">WORKS</p>
+<main class="editorial-page section-page section-works">
+  <header class="section-hero">
+    <p class="eyebrow">WORKS / ARCHIVE</p>
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    <div class="section-count"><strong>{{ len .Pages }}</strong><span>件作品</span></div>
   </header>
 
-  <div class="works-grid works-page-grid">
-    {{ range .Paginator.Pages }}
-      {{ partial "work-card.html" . }}
-    {{ else }}
-      <p class="empty-state">作品正在整理中。</p>
-    {{ end }}
-  </div>
+  <section class="archive-section" aria-label="作品列表">
+    <div class="timeline">
+      {{ range .Paginator.Pages.GroupByDate "2006" }}
+        <section class="timeline-year" aria-labelledby="year-{{ .Key }}">
+          <header class="year-heading">
+            <span></span>
+            <h2 id="year-{{ .Key }}">{{ if eq .Key "0001" }}未标日期{{ else }}{{ .Key }}{{ end }}</h2>
+            <span></span>
+          </header>
+          <div class="timeline-items">
+            {{ range .Pages }}
+              {{ partial "work-card.html" . }}
+            {{ end }}
+          </div>
+        </section>
+      {{ else }}
+        <p class="empty-state">作品正在整理中。</p>
+      {{ end }}
+    </div>
+  </section>
 
   {{ if gt .Paginator.TotalPages 1 }}
   <nav class="page-nav" aria-label="分页">
-    {{ if .Paginator.HasPrev }}<a href="{{ .Paginator.Prev.URL }}">上一页</a>{{ end }}
+    {{ if .Paginator.HasPrev }}<a href="{{ .Paginator.Prev.URL }}">上一页</a>{{ else }}<span></span>{{ end }}
     <span>第 {{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }} 页</span>
-    {{ if .Paginator.HasNext }}<a href="{{ .Paginator.Next.URL }}">下一页</a>{{ end }}
+    {{ if .Paginator.HasNext }}<a href="{{ .Paginator.Next.URL }}">下一页</a>{{ else }}<span></span>{{ end }}
   </nav>
   {{ end }}
 </main>
 {{ end }}
-

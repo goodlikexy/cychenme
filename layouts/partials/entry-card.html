@@ -1,19 +1,35 @@
-<article class="entry-card">
+<article class="timeline-entry entry-{{ .Section }}">
   {{- $href := .RelPermalink -}}
-  {{- with .Params.externalArticle -}}{{ $href = . | relURL }}{{- end -}}
-  <a class="entry-card-link" href="{{ $href }}">
-    {{ with .Params.cover }}
-    <div class="entry-cover"><img src="{{ . | relURL }}" alt=""></div>
-    {{ end }}
-    <div class="entry-body">
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
-      <h3>{{ .Title }}</h3>
-      <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 110 }}{{ end }}</p>
-      {{ with .Params.tags }}
-      <div class="entry-tags">
-        {{ range first 3 . }}<span>{{ . }}</span>{{ end }}
+  {{- $external := false -}}
+  {{- with .Params.externalArticle -}}
+    {{- $href = . | relURL -}}
+    {{- $external = true -}}
+  {{- end -}}
+  <span class="timeline-dot" aria-hidden="true"></span>
+  <a class="timeline-link" href="{{ $href }}">
+    <div class="entry-meta">
+      {{ if eq .Date.Year 1 }}
+      <span class="entry-undated">时间待补</span>
+      {{ else }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time>
+      {{ end }}
+      <span class="entry-type">{{ .Section }}</span>
+      <span>{{ .ReadingTime }} min</span>
+    </div>
+    <div class="entry-content">
+      <div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
+        {{ with .Params.tags }}
+        <div class="entry-tags">
+          {{ range first 4 . }}<span>#{{ . }}</span>{{ end }}
+        </div>
+        {{ end }}
       </div>
+      {{ with .Params.cover }}
+      <figure class="entry-cover"><img src="{{ . | relURL }}" alt="" loading="lazy"></figure>
       {{ end }}
     </div>
+    <span class="entry-open">打开阅读 {{ if $external }}↗{{ else }}→{{ end }}</span>
   </a>
 </article>

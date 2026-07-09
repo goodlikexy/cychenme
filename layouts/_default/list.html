@@ -1,26 +1,39 @@
 {{ define "content" }}
-<main class="section-page">
-  <header class="section-intro">
-    <p class="section-label">{{ upper .Section }}</p>
+<main class="editorial-page section-page section-{{ .Section }}">
+  <header class="section-hero">
+    <p class="eyebrow">{{ upper .Section }} / ARCHIVE</p>
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    <div class="section-count"><strong>{{ len .Pages }}</strong><span>篇记录</span></div>
   </header>
 
-  <div class="entry-list">
-    {{ range .Paginator.Pages }}
-      {{ partial "entry-card.html" . }}
-    {{ else }}
-      <p class="empty-state">这里暂时还没有内容。</p>
-    {{ end }}
-  </div>
+  <section class="archive-section" aria-label="{{ .Title }}内容列表">
+    <div class="timeline">
+      {{ range .Paginator.Pages.GroupByDate "2006" }}
+        <section class="timeline-year" aria-labelledby="year-{{ .Key }}">
+          <header class="year-heading">
+            <span></span>
+            <h2 id="year-{{ .Key }}">{{ if eq .Key "0001" }}未标日期{{ else }}{{ .Key }}{{ end }}</h2>
+            <span></span>
+          </header>
+          <div class="timeline-items">
+            {{ range .Pages }}
+              {{ partial "entry-card.html" . }}
+            {{ end }}
+          </div>
+        </section>
+      {{ else }}
+        <p class="empty-state">这里暂时还没有内容。</p>
+      {{ end }}
+    </div>
+  </section>
 
   {{ if gt .Paginator.TotalPages 1 }}
   <nav class="page-nav" aria-label="分页">
-    {{ if .Paginator.HasPrev }}<a href="{{ .Paginator.Prev.URL }}">上一页</a>{{ end }}
+    {{ if .Paginator.HasPrev }}<a href="{{ .Paginator.Prev.URL }}">上一页</a>{{ else }}<span></span>{{ end }}
     <span>第 {{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }} 页</span>
-    {{ if .Paginator.HasNext }}<a href="{{ .Paginator.Next.URL }}">下一页</a>{{ end }}
+    {{ if .Paginator.HasNext }}<a href="{{ .Paginator.Next.URL }}">下一页</a>{{ else }}<span></span>{{ end }}
   </nav>
   {{ end }}
 </main>
 {{ end }}
-
